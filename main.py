@@ -13,7 +13,7 @@ if os.getenv('LOGIN_TOKEN') is None or os.getenv('LOGIN_TOKEN') == '':
     call(["python", "generateLoginToken.py"])
     print(Fore.RED + 'Run the script again to continue. Exiting..')
     sys.exit()
-    # raise NullEnvironmentError("Exiting")
+
 try:
     token = os.getenv('LOGIN_TOKEN').split(': ')
     left = token[0]
@@ -23,7 +23,6 @@ except:
     call(["python", "generateLoginToken.py"])
     print(Fore.RED + 'Run the script again to continue. Exiting..')
     sys.exit()
-    # raise SyntaxError("Invalid Syntax for the LOGIN_TOKEN ENV. Please read the docs and try again")
 
 print(Style.RESET_ALL)
 
@@ -31,7 +30,7 @@ print(Style.RESET_ALL)
 def fetchAndStoreAnimeData(URL):
     animeTitle, animeList = FetchAnimeData(URL, left, right)
     if animeList:
-        with open(f'{animeTitle}.txt', 'w') as f:
+        with open(f'{animeTitle}.txt', 'w', encoding='utf-8') as f:
             for episode in animeList:
                 f.write("%s\n" % episode)
         print(f'File {animeTitle}.txt saved successfully!')
