@@ -45,7 +45,7 @@ def FetchAnimeData(URL, left, right):
         left: right,
     })
     page = session.get(URL)
-    if '<title>Not allowed' in page.text:
+    if 'wp-admin-bar-logout' not in page.text:
         raise InvalidSessionException("Your session is either expired or is invalid. Please generate a new one")
     title = 'output'
     result = re.search('<\W*title\W*(.*)</title', page.text, re.IGNORECASE)
