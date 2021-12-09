@@ -3,6 +3,7 @@ import os
 from colorama import Fore, Back, Style
 from dotenv import load_dotenv
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -31,7 +32,7 @@ if os.getenv('HI10_USERNAME') is not None and os.getenv('HI10_USERNAME') != '' a
         'HI10_PASSWORD') is not None and os.getenv('HI10_PASSWORD') != '':
     isCredentialsProvided = True
 
-browser = webdriver.Chrome()
+browser = webdriver.Chrome(ChromeDriverManager().install())
 browser.maximize_window()
 LOGIN_PAGE = 'https://hi10anime.com/wp-login.php'
 browser.get(LOGIN_PAGE)
