@@ -51,7 +51,7 @@ def fetchAndStoreAnimeData(URL):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print("Please pass at least one URL as argument with the file.\nUsage: python main.py URL1 URL2 URL3")
+        print("Please pass at least one URL as argument with the file.\nUsage: python -m hi10dl URL1 URL2 URL3 ...")
     else:
         outdir = os.path.dirname(__file__) + '/../out'
         isExist = os.path.exists(outdir)
