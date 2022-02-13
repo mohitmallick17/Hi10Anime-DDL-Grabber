@@ -5,7 +5,7 @@ import string
 
 import requests
 
-from exceptions import InvalidSessionException
+from hi10dl.helpers.exceptions import InvalidSessionException
 
 
 def generateJToken():

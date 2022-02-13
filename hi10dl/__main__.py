@@ -4,15 +4,15 @@ from subprocess import call
 
 from colorama import Fore, Style
 from dotenv import load_dotenv
-from fetchAnimeData import FetchAnimeData
+from hi10dl.helpers.fetchAnimeData import FetchAnimeData
 
-from exceptions import InvalidSessionException
+from hi10dl.helpers.exceptions import InvalidSessionException
 
-load_dotenv('config.env')
+load_dotenv('hi10dl/config.env')
 print(Fore.RED + Style.BRIGHT)
 if os.getenv('LOGIN_TOKEN') is None or os.getenv('LOGIN_TOKEN') == '':
     print('LOGIN_TOKEN var not found! Please login on the web to generate one')
-    call(["python", "generateLoginToken.py"])
+    call(["python", "hi10dl/helpers/generateLoginToken.py"])
     print(Fore.RED + 'Run the script again to continue. Exiting..')
     sys.exit()
 
@@ -34,7 +34,7 @@ def fetchAndStoreAnimeData(URL):
     try:
         animeTitle, animeList = FetchAnimeData(URL, left, right)
         if animeList:
-            with open(f'{animeTitle}.txt', 'w', encoding='utf-8') as f:
+            with open(os.path.dirname(__file__) + f'/../out/{animeTitle}.txt', 'w', encoding='utf-8') as f:
                 for episode in animeList:
                     f.write("%s\n" % episode)
             print(f'File {animeTitle}.txt saved successfully!')
@@ -53,6 +53,10 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Please pass at least one URL as argument with the file.\nUsage: python main.py URL1 URL2 URL3")
     else:
+        outdir = os.path.dirname(__file__) + '/../out'
+        isExist = os.path.exists(outdir)
+        if not isExist:
+            os.makedirs(outdir)
         for i, arg in enumerate(sys.argv):
             if i > 0:
                 fetchAndStoreAnimeData(arg)
