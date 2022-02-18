@@ -1,5 +1,5 @@
 import os
-
+import os.path as path
 from colorama import Fore, Back, Style
 from dotenv import load_dotenv
 from selenium import webdriver
@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 print(Style.RESET_ALL)
 
+configPath = path.abspath(path.join(__file__ ,"../..")) + '\config.env'
 
 def replaceLine(config_file, searchExp, replaceExp):
     with open(config_file, 'r') as file:
@@ -26,8 +27,10 @@ def replaceLine(config_file, searchExp, replaceExp):
         file.writelines(data)
 
 
-load_dotenv('config.env')
+load_dotenv(configPath)
 isCredentialsProvided = False
+
+print(os.getenv('HI10_USERNAME'))
 if os.getenv('HI10_USERNAME') is not None and os.getenv('HI10_USERNAME') != '' and os.getenv(
         'HI10_PASSWORD') is not None and os.getenv('HI10_PASSWORD') != '':
     isCredentialsProvided = True
@@ -57,7 +60,7 @@ while True:
         token = cookie[0]['name'] + ': ' + cookie[0]['value']
         browser.close()
         try:
-            replaceLine("config.env", "LOGIN_TOKEN", 'LOGIN_TOKEN="' + token + '"')
+            replaceLine(configPath, "LOGIN_TOKEN", 'LOGIN_TOKEN="' + token + '"')
             print('Imported token to config.env successfully!')
         except:
             print(
