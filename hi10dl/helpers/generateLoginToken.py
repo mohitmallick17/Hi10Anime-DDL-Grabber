@@ -30,7 +30,6 @@ def replaceLine(config_file, searchExp, replaceExp):
 load_dotenv(configPath)
 isCredentialsProvided = False
 
-print(os.getenv('HI10_USERNAME'))
 if os.getenv('HI10_USERNAME') is not None and os.getenv('HI10_USERNAME') != '' and os.getenv(
         'HI10_PASSWORD') is not None and os.getenv('HI10_PASSWORD') != '':
     isCredentialsProvided = True
