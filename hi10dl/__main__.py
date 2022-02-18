@@ -43,7 +43,7 @@ def fetchAndStoreAnimeData(URL):
     except InvalidSessionException:
         print(Fore.RED + Style.BRIGHT)
         print("Token Expired. Please login to generate a new one")
-        call(["python", "generateLoginToken.py"])
+        call(["python", "hi10dl/helpers/generateLoginToken.py"])
         print(Fore.RED + 'Run the script again to continue. Exiting..')
         print(Style.RESET_ALL)
         sys.exit()
